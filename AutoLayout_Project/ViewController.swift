@@ -9,8 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet var redContainer: UIView!
-    @IBOutlet var blueContainer: UIView!
+    @IBOutlet private var redContainer: UIView?
+    @IBOutlet private var blueContainer: UIView?
     
     private let redSubview = RedSubview.instanceFromNib() ?? UIView()
     private let blueSubview = BlueSubview.instanceFromNib() ?? UIView()
