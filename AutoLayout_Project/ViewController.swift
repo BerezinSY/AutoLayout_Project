@@ -21,23 +21,22 @@ class ViewController: UIViewController {
         print("\(String(describing: Self.self)) - \(#function)")
         print("")
         print("")
-        redContainer.addSubview(redSubview)
-        blueContainer.addSubview(blueSubview)
+        let subviews = [redSubview, blueSubview]
+        let containers = [redContainer, blueContainer]
         
-        redSubview.translatesAutoresizingMaskIntoConstraints = false
-        blueSubview.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            redSubview.topAnchor.constraint(equalTo: redContainer.topAnchor),
-            redContainer.bottomAnchor.constraint(equalTo: redSubview.bottomAnchor),
-            redSubview.leadingAnchor.constraint(equalTo: redContainer.leadingAnchor),
-            redContainer.trailingAnchor.constraint(equalTo: redSubview.trailingAnchor),
+        zip(containers, subviews).forEach({
+            $0.0?.addSubview($0.1)
+            $0.1.translatesAutoresizingMaskIntoConstraints = false
             
-            blueSubview.topAnchor.constraint(equalTo: blueContainer.topAnchor),
-            blueContainer.bottomAnchor.constraint(equalTo: blueSubview.bottomAnchor),
-            blueSubview.leadingAnchor.constraint(equalTo: blueContainer.leadingAnchor),
-            blueContainer.trailingAnchor.constraint(equalTo: blueSubview.trailingAnchor)
-        ])
+            if let container = $0.0 {
+                NSLayoutConstraint.activate([
+                    $0.1.topAnchor.constraint(equalTo: container.topAnchor),
+                    container.bottomAnchor.constraint(equalTo: $0.1.bottomAnchor),
+                    $0.1.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+                    container.trailingAnchor.constraint(equalTo: $0.1.trailingAnchor)
+                ])
+            }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
